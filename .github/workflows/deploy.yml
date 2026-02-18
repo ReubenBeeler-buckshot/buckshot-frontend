@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy to GitHub Pages
 
 on:
   push:
@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: false
 
 jobs:
@@ -25,12 +25,13 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '20.14.0'
+          cache: 'pnpm' # Add this
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: '8.15.6'
 
       - name: Install dependencies
         run: pnpm install
@@ -39,7 +40,13 @@ jobs:
         run: pnpm run build
 
       - name: Copy CNAME to dist
-        run: cp CNAME dist/
+        run: |
+          if [ -f CNAME ]; then
+            cp CNAME dist/
+          else
+            echo >&2 'No CNAME file!'
+            exit 1337
+          fi
 
       - name: Create .nojekyll
         run: touch dist/.nojekyll

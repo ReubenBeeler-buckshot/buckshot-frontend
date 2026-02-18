@@ -279,18 +279,6 @@ export default function Gallery() {
     return species;
   };
 
-  const handleDownload = (url: string, filename: string) => {
-    // Create a temporary anchor element and trigger download
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header with Search and Filters */}
@@ -463,11 +451,11 @@ export default function Gallery() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => {}} // {() => handleDownload(selectedImage.url, selectedImage.key.split("/").pop() || "image.jpg")}
+                    onClick={() => window.open(selectedImage.url, "_blank", "noopener,noreferrer")}
                     className="shrink-0"
                   >
-                    <Download className="h-4 w-4 mr-2" />
-                    Download Temporarily Disabled
+                    <ExternalLink className="h-4 w-4 mr-2" />
+                    Open in browser
                   </Button>
                 </div>
               </DialogHeader>
