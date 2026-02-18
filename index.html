@@ -5,6 +5,15 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Website with About and Gallery</title>
+    <script>
+      // Restore URL after GitHub Pages 404 redirect (see public/404.html).
+      (function () {
+        var p = new URLSearchParams(window.location.search).get('p');
+        if (p) {
+          window.history.replaceState(null, '', decodeURIComponent(p));
+        }
+      })();
+    </script>
       <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       <link rel="shortcut icon" href="/favicon.ico" />
